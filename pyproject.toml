@@ -20,10 +20,10 @@ classifiers = [
 
 
 dependencies = [
-  "keras == 3.2.1",
-  "numpy == 1.26.4",
-  "pillow == 10.3.0",
-  "tensorflow == 2.16.1",
+  "keras",
+  "numpy",
+  "pillow",
+  "tensorflow",
 ]
 
 [project.optional-dependencies]
