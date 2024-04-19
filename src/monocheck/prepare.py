@@ -5,7 +5,6 @@ from pathlib import Path
 from keras.preprocessing.image import load_img 
 
 
-
 def load_image(image_path:Path) -> np.array:
     """ load the image as a 224x224 array """
     img = load_img(image_path, target_size=(224,224))
