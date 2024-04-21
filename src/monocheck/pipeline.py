@@ -1,3 +1,4 @@
+import numpy as np
 from pathlib import Path 
 from typing import List 
 
@@ -9,7 +10,8 @@ from monocheck.feature_extraction import extract_features
 
 
 def pipeline(image_paths:List[Path]):
-    imgs_array = [load_image(image_path) for image_path in image_paths]
+    imgs_array = [load_image(image_path).squeeze(0) for image_path in image_paths]
+    imgs_array = np.stack(imgs_array, axis=0)
     model = VGG16()
     model = Model(inputs = model.inputs, outputs = model.layers[-2].output)
 
@@ -18,11 +20,8 @@ def pipeline(image_paths:List[Path]):
 
 
 if __name__ == "__main__":
-    image_path = Path("image.jpg")
-    imgs_path = [image_path]
+    imgs_path = [Path("image.jpg"), Path("image2.jpg")]
 
-    imgs_features = pipeline(imgs_path)
-    print(imgs_features)
     
 
 
