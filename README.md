@@ -7,18 +7,17 @@
 
 <!-- Replace with 1-sentence description about what this tool is or does.-->
 
-<h3 align="center">Use this repo template for all new Python projects.</h3>
+<h3 align="center">monocheck</h3>
 
 ## Description
 
-Project description goes here.
+check if a image is mono colour or not
 
 ## Project owner(s)
 
 <!-- Link to the repo owners' github profiles -->
 
-- [@10zinten](https://github.com/10zinten)
-- [@evanyerburgh](https://github.com/evanyerburgh)
+- [@10tenzin3](https://github.com/tenzin3)
 
 ## Integrations
 
@@ -29,4 +28,3 @@ None
 
 <!-- Update the link to the docs -->
 
-Read the docs [here](https://wiki.openpecha.org/#/dev/coding-guidelines).
