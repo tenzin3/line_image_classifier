@@ -1,5 +1,6 @@
 import numpy as np
 import json 
+
 from pathlib import Path 
 from typing import List 
 
@@ -25,6 +26,10 @@ def pipeline(image_paths:List[Path], output_file_path:Path=Path('grouped_cluster
     clustering_labels = cluster(reduced_imgs_features)
     """ group images based on labels, with key: label and values: image paths"""
     cluster_groups = group_clusters(image_paths, clustering_labels)
+
+    """ save the result """
+    with open(output_file_path, 'w') as file:
+        json.dump(cluster_groups, file, indent=4)
     return cluster_groups
 
 
