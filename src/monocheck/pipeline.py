@@ -11,7 +11,7 @@ from monocheck.feature_extraction import extract_features
 from monocheck.dimension_reduction import reduce_dimension
 from monocheck.clustering import cluster, group_clusters
 
-def pipeline(image_paths:List[Path]):
+def pipeline(image_paths:List[Path], output_file_path:Path=Path('grouped_clusters.json')):
     imgs_array = [load_image(image_path).squeeze(0) for image_path in image_paths]
     imgs_array = np.stack(imgs_array, axis=0)
     model = VGG16()
@@ -32,11 +32,7 @@ def pipeline(image_paths:List[Path]):
 if __name__ == "__main__":
     imgs_path = [Path("image.jpg"), Path("image2.jpg")]
     grouped_clusters = pipeline(imgs_path)
-    file_name = 'grouped_clusters.json'
-    with open(file_name, 'w') as file:
-        json.dump(grouped_clusters, file, indent=4)
 
-    print(f"Data has been successfully saved to {file_name}.")
 
     
 
