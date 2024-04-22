@@ -2,6 +2,7 @@ ocr_output/
 array.pkl
 grouped_clusters.json
 clustering_output/
+output_images/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

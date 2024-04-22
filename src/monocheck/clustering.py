@@ -1,12 +1,14 @@
 import numpy as np
-import matplotlib.pyplot as plt
 
 from typing import List
 from pathlib import Path 
+from PIL import Image
 
 from sklearn.cluster import KMeans
-from keras.preprocessing.image import load_img 
 
+
+from reportlab.lib.pagesizes import letter
+from reportlab.pdfgen import canvas
 
 def cluster(features: np.ndarray, no_of_clusters:int= 2):
     kmeans = KMeans(n_clusters= no_of_clusters, random_state=22)
@@ -27,31 +29,39 @@ def group_clusters(files_paths: List[Path], cluster_labels:np.ndarray):
             groups[cluster].append(file)
     return groups
 
-
-def view_clusters(grouped_clusters, output_dir='clustering_output'):
-    output_dir = Path(output_dir)
-    output_dir.mkdir(parents=True, exist_ok=True)
+def view_clusters(grouped_clusters, save_path='output_images'):
+    """ save each clustering in different pdfs """
     clusters = list(grouped_clusters.keys())
     for cluster in clusters:
-        plt.figure(figsize=(30,30))
-
-        """ file names """
         files = grouped_clusters[cluster]
-        """ Only allow up to 100 images to be shown at a time """
-        if len(files) > 100:
-            files = files[:100]
-
-        """ Plot each image in the cluster """
+        images_per_page = 10
+        page_width, page_height = letter  # Default letter size
+        
+        """ Create a PDF canvas """
+        c = canvas.Canvas(f'{save_path}/cluster_{cluster}.pdf', pagesize=letter)
+        
+        y_position = page_height - 72  # Initial top margin offset
         for index, file in enumerate(files):
-            plt.subplot(10, 10, index + 1)
-            img = load_img(file)
-            img = np.array(img)
-            plt.imshow(img)
-            plt.axis('off')
-
-        """ save the image"""
-        plt.savefig(f'{output_dir}/cluster_{cluster}.png')
-        plt.close()  
-
-        print(f"Cluster {cluster} saved to {output_dir}/cluster_{cluster}.jpg")
-
+            if index % images_per_page == 0 and index != 0:
+                c.showPage()  # Add a new page if the current one is filled
+                y_position = page_height - 72  # Reset position at the top of a new page
+            
+            """ Open image and get its original size """
+            img = Image.open(file)
+            img_width, img_height = img.size
+            
+            """ Check if the image width exceeds the page width """
+            if img_width > page_width - 144:
+                scale_factor = (page_width - 144) / img_width
+                img_width *= scale_factor
+                img_height *= scale_factor
+            
+            """ Draw image on the canvas at original size """
+            c.drawImage(file, 72, y_position - img_height, width=img_width, height=img_height)
+            
+            """  Update y_position for the next image """
+            y_position -= (img_height + 10)  # Move down by the image height plus some margin
+        
+        """save pdf"""
+        c.save()  
+        print(f"Cluster {cluster} images saved to {save_path}/cluster_{cluster}.pdf")
