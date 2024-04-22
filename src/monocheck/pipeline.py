@@ -1,4 +1,5 @@
 import numpy as np
+import json 
 from pathlib import Path 
 from typing import List 
 
@@ -26,10 +27,16 @@ def pipeline(image_paths:List[Path]):
     cluster_groups = group_clusters(image_paths, clustering_labels)
     return cluster_groups
 
+
+
 if __name__ == "__main__":
     imgs_path = [Path("image.jpg"), Path("image2.jpg")]
-    imgs_labels = pipeline(imgs_path)
-    print(imgs_labels)
+    grouped_clusters = pipeline(imgs_path)
+    file_name = 'grouped_clusters.json'
+    with open(file_name, 'w') as file:
+        json.dump(grouped_clusters, file, indent=4)
+
+    print(f"Data has been successfully saved to {file_name}.")
 
     
 

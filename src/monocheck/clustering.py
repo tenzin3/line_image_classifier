@@ -14,6 +14,7 @@ def group_clusters(files_paths: List[Path], cluster_labels:np.ndarray):
     groups = {}
     for file, cluster in zip(files_paths, cluster_labels):
         file = str(file)
+        cluster = int(cluster)   # int32 -> int conversion
         if cluster not in groups.keys():
             groups[cluster] = []
             groups[cluster].append(file)
