@@ -10,8 +10,7 @@ from keras.models import Model
 from monocheck.prepare import load_image
 from monocheck.feature_extraction import extract_features
 from monocheck.dimension_reduction import reduce_dimension
-from monocheck.clustering import cluster, group_clusters
-
+from monocheck.clustering import cluster, group_clusters, view_clusters
 
 IMAGE_FEATURES_PICKLE = Path('array.pkl')
 
@@ -46,10 +45,9 @@ def pipeline(image_paths:List[Path], output_file_path:Path=Path('grouped_cluster
 
 
 if __name__ == "__main__":
-    # imgs_path = [Path("image.jpg"), Path("image2.jpg")]
     imgs_path = list(Path("ocr_output").rglob("*.jpg"))
     grouped_clusters = pipeline(imgs_path)
-
+    view_clusters(grouped_clusters)
 
     
 
