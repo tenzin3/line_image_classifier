@@ -8,6 +8,7 @@ from keras.models import Model
 from monocheck.prepare import load_image
 from monocheck.feature_extraction import extract_features
 from monocheck.dimension_reduction import reduce_dimension
+from monocheck.clustering import cluster
 
 def pipeline(image_paths:List[Path]):
     imgs_array = [load_image(image_path).squeeze(0) for image_path in image_paths]
@@ -18,12 +19,13 @@ def pipeline(image_paths:List[Path]):
     imgs_features = extract_features(imgs_array, model)
     imgs_features = imgs_features.reshape(-1,4096)
     reduced_imgs_features = reduce_dimension(imgs_features)
-    return reduced_imgs_features
+    clustering_labels = cluster(reduced_imgs_features)
+    return clustering_labels
 
 if __name__ == "__main__":
     imgs_path = [Path("image.jpg"), Path("image2.jpg")]
-    imgs_feat = pipeline(imgs_path)
-    print(imgs_feat)
+    imgs_labels = pipeline(imgs_path)
+    print(imgs_labels)
 
     
 
