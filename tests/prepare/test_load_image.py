@@ -1,6 +1,6 @@
 import numpy as np
 from pathlib import Path 
-from monocheck.prepare import load_image
+from line_image_classifier.prepare import load_image
 
 
 def test_load_image():
