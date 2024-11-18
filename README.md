@@ -32,7 +32,11 @@ Clustering is an unsupervised machine learning technique used to group similar d
 ![image](https://github.com/tenzin3/monocheck/assets/52460417/6d396ab3-3602-4b06-9021-1e71bfa6ef39)
 ![image](https://github.com/tenzin3/monocheck/assets/52460417/f3560fc9-f940-4e71-90d3-f6873310e0cd)
 
+## Classify based on Image Size
+In most cases, desired line image outputs have similar dimensions, making it efficient to cluster images based on their size. This method works well for identifying outliers with significantly different dimensions.
 
+## Classify based on the Image feature
+In some cases, bad line images may have similar dimensions to good ones but are incorrect due to issues like rotation or excessive zoom. For these scenarios, classification based on image features is essential. VGG16 is used to extract image features, followed by dimensionality reduction using PCA, and clustering is then performed to group similar images effectively.
 
 
 
