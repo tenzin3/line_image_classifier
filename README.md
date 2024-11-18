@@ -1,13 +1,8 @@
 
-<h1 align="center">
-  <br>
-  <a href="https://openpecha.org"><img src="https://avatars.githubusercontent.com/u/82142807?s=400&u=19e108a15566f3a1449bafb03b8dd706a72aebcd&v=4" alt="OpenPecha" width="150"></a>
-  <br>
-</h1>
 
 <!-- Replace with 1-sentence description about what this tool is or does.-->
 
-<h3 align="center">monocheck</h3>
+<h3 align="center">Line Image Classifier</h3>
 
 ![image](https://github.com/user-attachments/assets/92d6604a-2b29-4ab5-ad76-56d860eced23)
 
@@ -61,7 +56,9 @@ classify_with_feature(images, output_path)
 ```
 
 
-
+## Output
+A JSON file with cluster numbers as keys and lists of image paths belonging to each group as values.
+PDF files, with each PDF containing line images (10 images per page) from a specific cluster group, for better visualization of result.
 
 
 
