@@ -9,6 +9,8 @@
 
 <h3 align="center">monocheck</h3>
 
+![image](https://github.com/user-attachments/assets/92d6604a-2b29-4ab5-ad76-56d860eced23)
+
 ## Introduction
 In the OCR domain, line segmentation models are used to divide images containing text into individual lines. However, these models are not always perfect. To address this, I developed a package to classify line images as either good or bad based on their quality.
 
