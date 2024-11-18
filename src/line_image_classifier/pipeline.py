@@ -3,6 +3,7 @@ import json
 import pickle 
 from pathlib import Path 
 from typing import List 
+from PIL import Image
 
 from keras.applications.vgg16 import VGG16 
 from keras.models import Model
@@ -14,7 +15,7 @@ from line_image_classifier.clustering import cluster, group_clusters, view_clust
 
 IMAGE_FEATURES_PICKLE = Path('array.pkl')
 
-def pipeline(image_paths:List[Path], output_file_path:Path=Path('grouped_clusters.json')):
+def classify_with_feature(image_paths:List[Path], output_file_path:Path=Path('grouped_clusters.json')):
     imgs_array = [load_image(image_path).squeeze(0) for image_path in image_paths]
     imgs_array = np.stack(imgs_array, axis=0)
     model = VGG16()
@@ -43,12 +44,27 @@ def pipeline(image_paths:List[Path], output_file_path:Path=Path('grouped_cluster
     return cluster_groups
 
 
+def get_image_size(image_path: Path):
+    """Get the dimensions of an image."""
+    with Image.open(image_path) as img:
+        return img.size  # (width, height)
 
-if __name__ == "__main__":
-    imgs_path = list(Path("ocr_output").rglob("*.jpg"))
-    grouped_clusters = pipeline(imgs_path)
-    view_clusters(grouped_clusters)
-
+def classify_with_size(image_paths: List[Path], output_file_path: Path = Path('size_based_clusters.json'), n_clusters: int = 3):
+    # Extract image sizes (width and height) for clustering
+    image_sizes = np.array([get_image_size(image_path) for image_path in image_paths])
     
+    # Perform clustering using KMeans on image sizes
+    clustering_labels = cluster(image_sizes, n_clusters)
+    
+    # Group images based on labels
+    cluster_groups = group_clusters(image_paths, clustering_labels)
+    
+    # Save the result
+    with open(output_file_path, 'w') as file:
+        json.dump(cluster_groups, file, indent=4)
+    
+    return cluster_groups
+
+
 
 
