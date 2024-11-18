@@ -7,10 +7,10 @@ from typing import List
 from keras.applications.vgg16 import VGG16 
 from keras.models import Model
 
-from monocheck.prepare import load_image
-from monocheck.feature_extraction import extract_features
-from monocheck.dimension_reduction import reduce_dimension
-from monocheck.clustering import cluster, group_clusters, view_clusters
+from line_image_classifier.prepare import load_image
+from line_image_classifier.feature_extraction import extract_features
+from line_image_classifier.dimension_reduction import reduce_dimension
+from line_image_classifier.clustering import cluster, group_clusters, view_clusters
 
 IMAGE_FEATURES_PICKLE = Path('array.pkl')
 

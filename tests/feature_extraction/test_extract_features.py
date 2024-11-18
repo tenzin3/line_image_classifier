@@ -3,7 +3,7 @@ import numpy as np
 from keras.applications.vgg16 import VGG16 
 from keras.models import Model
 
-from monocheck.feature_extraction import extract_features
+from line_image_classifier.feature_extraction import extract_features
 
 
 def generate_random_image():
